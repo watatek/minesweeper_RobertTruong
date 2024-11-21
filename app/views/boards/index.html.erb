@@ -1,0 +1,65 @@
+<div class="container">  
+  <h1 class="text-center mb-4 text-light">Recent Minesweeper Boards</h1>
+
+  <%= form_with url: boards_path, method: :get, local: true do |f| %>  
+    <div class="d-flex justify-content-center mb-4">
+      <div data-mdb-input-init class="form-outline me-3" style="width: 14rem">
+        <%= f.text_field :name, value: params[:name], class: "form-control", placeholder: "Board Name" %>        
+      </div>
+      <%= f.submit "Search", class: "btn btn-primary" %>      
+    </div>
+  <% end %>
+
+  <ul class="list-group">
+    <% @boards.each do |board| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong><%= link_to board.name, board_path(board) %></strong>
+          <br>
+          Created by: <%= board.email %>
+          <br>
+          <small><%= board.created_at.strftime("%B %d, %Y %I:%M %p") %></small>
+        </div>
+        <span class="badge bg-primary rounded-pill"><%= board.width %>x<%= board.height %></span>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+  <% if @boards.prev_page %>
+    <%= link_to 'First', boards_path(page: 1), class: 'btn btn-primary' %>
+    <%= link_to 'Previous', boards_path(page: @boards.prev_page), class: 'btn btn-primary' %>
+  <% end %>
+
+  <% if @boards.total_pages <= 5 %>
+    <% (1..@boards.total_pages).each do |page| %>
+      <%= link_to page, boards_path(page: page), class: "btn btn-secondary #{'active' if page == @boards.current_page}" %>
+    <% end %>
+  <% else %>
+    <%= link_to 1, boards_path(page: 1), class: "btn btn-secondary #{'active' if @boards.current_page == 1}" %>
+    <span class="btn btn-secondary">...</span>
+    <% if @boards.current_page < @boards.total_pages %>
+      <% ([@boards.current_page - 1, @boards.current_page + 1].uniq).each do |page| %>
+        <%= link_to page, boards_path(page: page), class: "btn btn-secondary #{'active' if page == @boards.current_page}" %>
+      <% end %>
+
+      <span class="btn btn-secondary">...</span>
+      <%= link_to @boards.total_pages, boards_path(page: @boards.total_pages), class: "btn btn-secondary #{'active' if @boards.current_page == @boards.total_pages}" %>
+    <% else %>
+      <% ([@boards.current_page - 1, @boards.current_page].uniq).each do |page| %>
+        <%= link_to page, boards_path(page: page), class: "btn btn-secondary #{'active' if page == @boards.current_page}" %>
+      <% end %>
+    <% end %>    
+  <% end %>
+
+  <% if @boards.next_page %>
+    <%= link_to 'Next', boards_path(page: @boards.next_page), class: 'btn btn-primary' %>
+    <%= link_to 'Last', boards_path(page: @boards.total_pages), class: 'btn btn-primary' %>
+  <% end %>
+</div>
+
+  <div class="text-center mt-3">
+    <%= link_to "New Board", new_board_path, class: "btn btn-secondary" %>
+  </div>
+</div>

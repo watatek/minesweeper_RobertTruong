@@ -1,0 +1,64 @@
+body {
+  background-color: #f8f9fa;
+}
+
+body {
+  /* background: image-url("background.jpeg") no-repeat center center fixed; */
+  background-color: #007bff !important;
+  background-size: cover;
+  color: #333;
+}
+
+.table-minesweeper {
+  border-collapse: separate;
+  border-spacing: 2px;       /* Khoảng cách giữa các ô */
+  width: 50px !important;
+}
+
+.table-minesweeper td {
+  width: 50px;               /* Chiều rộng của ô */
+  height: 50px;              /* Chiều cao của ô */
+  min-width: 50px;           /* Đảm bảo kích thước không thay đổi */
+  min-height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #dee2e6; /* Độ dày và màu sắc đường viền ô */
+  background-color: #f8f9fa;
+  box-sizing: border-box;    /* Đảm bảo padding không làm thay đổi kích thước ô */
+}
+
+.table-minesweeper td.mine {
+  background-color: #ff6b6b; /* Màu nền cho ô chứa mìn */
+  color: white;              /* Màu chữ */
+}
+
+.table-minesweeper td.empty {
+  background-color: #ffffff; /* Màu nền cho ô trống */
+}
+
+.table-minesweeper td.number {
+  background-color: #d4edda; /* Màu nền cho ô chứa số */
+  color: #155724;            /* Màu chữ */
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.pagination a, .pagination span {
+  margin: 0 5px;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  text-decoration: none;
+}
+
+.pagination a:hover, .pagination span.active {
+  background-color: #007bff;
+  color: white;
+}
+

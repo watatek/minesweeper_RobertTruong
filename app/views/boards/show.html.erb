@@ -1,0 +1,26 @@
+<div class="container">
+  <h1 class="text-center text-light"><%= @board.name %></h1>
+  <p class="text-center text-light">Created by: <%= @board.email %></p>
+
+  <table class="table table-minesweeper mx-auto">
+    <% @board.board_data.each do |row| %>
+      <tr>
+        <% row.each do |cell| %>
+          <td class="<%= cell == 'M' ? 'mine' : cell.nil? ? 'empty' : 'number' %>">
+            <% if cell == "M" %>
+              💣
+            <% elsif cell.nil? %>
+              &nbsp; <!-- Ô trống -->
+            <% else %>
+              <%= cell %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="text-center mt-3">
+    <%= link_to "Back to Boards", boards_path, class: "btn btn-secondary" %>
+  </div>
+</div>

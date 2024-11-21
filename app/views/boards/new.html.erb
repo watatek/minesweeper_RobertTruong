@@ -1,0 +1,54 @@
+<div class="container">
+  <h1 class="text-center mb-4 text-light">Create a Minesweeper Board</h1>
+  <div class="card p-4 shadow">
+    <%= form_with model: @board, data: { turbo: false }, local: true do |f| %>      
+      <div class="mb-3">
+        <%= f.label :name, "Board Name", class: "form-label" %>
+        <%= f.text_field :name, class: "form-control", placeholder: "Enter a name for the board" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :email, "Your Email", class: "form-label" %>
+        <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :width, "Width", class: "form-label" %>
+        <%= f.number_field :width, class: "form-control", placeholder: "Enter board width" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :height, "Height", class: "form-label" %>
+        <%= f.number_field :height, class: "form-control", placeholder: "Enter board height" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :mines, "Number of Mines", class: "form-label" %>
+        <%= f.number_field :mines, class: "form-control", placeholder: "Enter number of mines" %>
+      </div>
+
+      <%= f.submit "Generate Board", class: "btn btn-primary w-100" %>
+    <% end %>
+  </div>
+
+  <!-- Display recent boards -->  
+  <h1 class="text-center mt-4 text-light">10 Recent Minesweeper Boards</h1>
+  <ul class="list-group">
+    <% @boards.each do |board| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong><%= link_to board.name, board_path(board) %></strong>
+          <br>
+          Created by: <%= board.email %>
+          <br>
+          <small><%= board.created_at.strftime("%B %d, %Y %I:%M %p") %></small>
+        </div>
+        <span class="badge bg-primary rounded-pill"><%= board.width %>x<%= board.height %></span>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="text-center mt-3">
+    <%= link_to 'View all generated boards', boards_path, class: 'btn btn-secondary mt-4' %>
+  </div>
+</div>
